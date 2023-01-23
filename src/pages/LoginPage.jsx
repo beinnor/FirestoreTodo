@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 
 import { UserAuth } from '../context/AuthContext';
 
-const Signin = () => {
+const LoginPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
@@ -27,11 +27,11 @@ const Signin = () => {
   return (
     <div className='max-w-[700px] mx-auto my-16 p-4'>
       <div>
-        <h1 className='text-2xl font-bold py-2'>Sign in</h1>
+        <h1 className='text-2xl font-bold py-2'>Log in</h1>
         <p className='py-2'>
           Don't have an account?{' '}
-          <Link to='/signup' className='underline'>
-            Sign up now!
+          <Link to='/register' className='underline'>
+            Register now!
           </Link>
         </p>
       </div>
@@ -53,11 +53,11 @@ const Signin = () => {
           />
         </div>
         <button className='border border-blue-500 bg-blue-600 hover:bg-blue-500 w-full p-4 my-2 text-white'>
-          Sign Up
+          Log In
         </button>
       </form>
     </div>
   );
 };
 
-export default Signin;
+export default LoginPage;

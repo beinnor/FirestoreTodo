@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 
 import { UserAuth } from '../context/AuthContext';
 
-const Signup = () => {
+const RegisterPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
@@ -31,7 +31,7 @@ const Signup = () => {
         <p className='py-2'>
           Already have an account?{' '}
           <Link to='/' className='underline'>
-            Sign in!
+            Log in!
           </Link>
         </p>
       </div>
@@ -53,11 +53,11 @@ const Signup = () => {
           />
         </div>
         <button className='border border-blue-500 bg-blue-600 hover:bg-blue-500 w-full p-4 my-2 text-white'>
-          Sign Up
+          Register
         </button>
       </form>
     </div>
   );
 };
 
-export default Signup;
+export default RegisterPage;

@@ -1,9 +1,10 @@
 import { Routes, Route } from 'react-router-dom';
-import Signin from './components/Signin';
-import Signup from './components/Signup';
-import Account from './components/Account';
 import ProtectedRoute from './components/ProtectedRoute';
 import { AuthContextProvider } from './context/AuthContext';
+import RegisterPage from './pages/RegisterPage';
+import LoginPage from './pages/LoginPage';
+import AccountPage from './pages/AccountPage';
+import NotFoundPage from './pages/NotFoundPage';
 
 function App() {
   return (
@@ -12,16 +13,17 @@ function App() {
       <hr />
       <AuthContextProvider>
         <Routes>
-          <Route path='/' element={<Signin />} />
-          <Route path='/signup' element={<Signup />} />
+          <Route path='/' element={<LoginPage />} />
+          <Route path='/register' element={<RegisterPage />} />
           <Route
             path='/account'
             element={
               <ProtectedRoute>
-                <Account />
+                <AccountPage />
               </ProtectedRoute>
             }
           />
+          <Route path='*' element={<NotFoundPage />} />
         </Routes>
       </AuthContextProvider>
     </div>
