@@ -5,25 +5,50 @@ import RegisterPage from './pages/RegisterPage';
 import LoginPage from './pages/LoginPage';
 import AccountPage from './pages/AccountPage';
 import NotFoundPage from './pages/NotFoundPage';
+import ErrorPage from './pages/ErrorPage';
+import Layout from './components/Layout';
+import TodoPage from './pages/TodoPage';
 
 function App() {
   return (
     <div className='App'>
-      <h1 className='text-center text-3xl font-bold'>Firebase Todo</h1>
-      <hr />
       <AuthContextProvider>
         <Routes>
-          <Route path='/' element={<LoginPage />} />
-          <Route path='/register' element={<RegisterPage />} />
           <Route
-            path='/account'
+            path='/login'
+            element={<LoginPage />}
+            errorElement={<ErrorPage />}
+          />
+          <Route
+            path='/register'
+            element={<RegisterPage />}
+            errorElement={<ErrorPage />}
+          />
+          <Route
+            path='/'
             element={
               <ProtectedRoute>
-                <AccountPage />
+                <Layout />
               </ProtectedRoute>
             }
+            errorElement={<ErrorPage />}
+          >
+            <Route
+              index={true}
+              element={<TodoPage />}
+              errorElement={<ErrorPage />}
+            />
+            <Route
+              path='/account'
+              element={<AccountPage />}
+              errorElement={<ErrorPage />}
+            />
+          </Route>
+          <Route
+            path='*'
+            element={<NotFoundPage />}
+            errorElement={<ErrorPage />}
           />
-          <Route path='*' element={<NotFoundPage />} />
         </Routes>
       </AuthContextProvider>
     </div>
