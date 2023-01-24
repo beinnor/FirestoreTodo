@@ -1,5 +1,20 @@
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import {
+  Flex,
+  Box,
+  FormControl,
+  FormLabel,
+  Input,
+  Stack,
+  Link,
+  Button,
+  Heading,
+  Text,
+  useColorModeValue,
+  FormErrorMessage,
+  Center,
+} from '@chakra-ui/react';
 
 import { UserAuth } from '../context/AuthContext';
 
@@ -20,43 +35,76 @@ const LoginPage = () => {
       navigate('/account');
     } catch (error) {
       setError(error.message);
-      console.log(error.message);
     }
   };
 
   return (
-    <div className='max-w-[700px] mx-auto my-16 p-4'>
-      <div>
-        <h1 className='text-2xl font-bold py-2'>Log in</h1>
-        <p className='py-2'>
-          Don't have an account?{' '}
-          <Link to='/register' className='underline'>
-            Register now!
-          </Link>
-        </p>
-      </div>
-      <form onSubmit={handleSubmit}>
-        <div className='flex flex-col py-2'>
-          <label className='py-2 font-medium'>Email address</label>
-          <input
-            onChange={(e) => setEmail(e.target.value)}
-            className='border py-3'
-            type='email'
-          />
-        </div>
-        <div className='flex flex-col py-2'>
-          <label className='py-2 font-medium'>Password</label>
-          <input
-            onChange={(e) => setPassword(e.target.value)}
-            className='border py-3'
-            type='password'
-          />
-        </div>
-        <button className='border border-blue-500 bg-blue-600 hover:bg-blue-500 w-full p-4 my-2 text-white'>
-          Log In
-        </button>
-      </form>
-    </div>
+    <Flex
+      minH={'100vh'}
+      align={'center'}
+      justify={'center'}
+      bg={useColorModeValue('gray.50', 'gray.800')}
+    >
+      <Stack spacing={8} mx={'auto'} maxW={'lg'} py={12} px={6}>
+        <Stack align={'center'}>
+          <Heading fontSize={'4xl'}>Sign in to your account</Heading>
+          <Text fontSize={'lg'} color={'gray.600'}>
+            Don't have an account?{' '}
+            <Link href='/register' color={'blue.400'}>
+              Register
+            </Link>{' '}
+            ✌️
+          </Text>
+        </Stack>
+        <Box
+          rounded={'lg'}
+          bg={useColorModeValue('white', 'gray.700')}
+          boxShadow={'lg'}
+          p={8}
+        >
+          <Stack spacing={4}>
+            <FormControl isInvalid={error} id='email'>
+              <FormLabel>Email address</FormLabel>
+              <Input
+                type='email'
+                onChange={(e) => {
+                  setError('');
+                  setEmail(e.target.value);
+                }}
+              />
+            </FormControl>
+            <FormControl isInvalid={error} id='password'>
+              <FormLabel>Password</FormLabel>
+              <Input
+                type='password'
+                onChange={(e) => {
+                  setError('');
+                  setPassword(e.target.value);
+                }}
+              />
+              <FormErrorMessage>{error}</FormErrorMessage>
+            </FormControl>
+
+            <Stack spacing={10}>
+              <Center>
+                <Link color={'blue.400'}>Forgot password?</Link>
+              </Center>
+
+              <Button
+                bg={'blue.400'}
+                color={'white'}
+                _hover={{
+                  bg: 'blue.500',
+                }}
+                onClick={handleSubmit}
+              >
+                Sign in
+              </Button>
+            </Stack>
+          </Stack>
+        </Box>
+      </Stack>
+    </Flex>
   );
 };
 
