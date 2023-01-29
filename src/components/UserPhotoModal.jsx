@@ -12,8 +12,8 @@ import {
   Input,
   Button,
   useDisclosure,
-  Text,
-  Flex,
+  Avatar,
+  Box,
 } from '@chakra-ui/react';
 import { UserAuth } from '../context/AuthContext';
 
@@ -33,12 +33,8 @@ const UserPhotoModal = () => {
 
   return (
     <>
-      <Flex>
-        <Text ml={4} ref={finalRef}>
-          Photo: {!user.photoURL ? 'Not set' : user.photoURL}
-        </Text>
-        <Button onClick={onOpen}>Set Photo Url</Button>
-      </Flex>
+      <Button onClick={onOpen}>Change Photo</Button>
+
       <Modal
         initialFocusRef={initialRef}
         finalFocusRef={finalRef}

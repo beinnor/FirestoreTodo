@@ -6,15 +6,36 @@ import {
   onAuthStateChanged,
   updateProfile,
 } from 'firebase/auth';
-import { auth } from '../services/firebase';
+import {
+  getFirestore,
+  collection,
+  getDocs,
+  deleteDoc,
+  doc,
+  addDoc,
+  CollectionReference,
+} from '@firebase/firestore';
+import app, { auth } from '../services/firebase';
 
 const UserContext = createContext();
+const db = getFirestore(app);
 
 export const AuthContextProvider = ({ children }) => {
   const [user, setUser] = useState({});
 
-  const createUser = (email, password) => {
-    return createUserWithEmailAndPassword(auth, email, password);
+  const createUser = async (email, password, name) => {
+    try {
+      const res = await createUserWithEmailAndPassword(auth, email, password);
+      const user = res.user;
+      await addDoc(collection(db, 'Users'), {
+        uid: user.uid,
+        name: name,
+        authProvider: 'local',
+        email,
+      });
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const signInUser = (email, password) => {

@@ -22,6 +22,7 @@ const RegisterPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [password2, setPassword2] = useState('');
+  const [name, setName] = useState('');
   const [error, setError] = useState('');
 
   const { createUser } = UserAuth();
@@ -34,7 +35,7 @@ const RegisterPage = () => {
 
     if (password === password2) {
       try {
-        await createUser(email, password);
+        await createUser(email, password, name);
         navigate('/account');
       } catch (error) {
         setError(error.message);
@@ -69,42 +70,51 @@ const RegisterPage = () => {
           p={8}
         >
           <Stack spacing={4}>
-            <FormControl isInvalid={error} id='email'>
-              <FormLabel>Email address</FormLabel>
-              <Input type='email' onChange={(e) => setEmail(e.target.value)} />
-            </FormControl>
-            <FormControl isInvalid={error} id='password'>
-              <FormLabel>Password</FormLabel>
-              <Input
-                type='password'
-                onChange={(e) => {
-                  setPassword(e.target.value);
-                }}
-              />
-            </FormControl>
-            <FormControl isInvalid={error} id='password2'>
-              <FormLabel>Confirm Password</FormLabel>
-              <Input
-                type='password'
-                onChange={(e) => {
-                  setError('');
-                  setPassword2(e.target.value);
-                }}
-              />
-              <FormErrorMessage>{error}</FormErrorMessage>
-            </FormControl>
-            <Stack spacing={10}>
-              <Button
-                bg={'blue.400'}
-                color={'white'}
-                _hover={{
-                  bg: 'blue.500',
-                }}
-                onClick={handleSubmit}
-              >
-                Register
-              </Button>
-            </Stack>
+            <form onSubmit={handleSubmit}>
+              <FormControl isInvalid={error} id='name'>
+                <FormLabel>Name</FormLabel>
+                <Input type='text' onChange={(e) => setName(e.target.value)} />
+              </FormControl>
+              <FormControl isRequired isInvalid={error} id='email'>
+                <FormLabel>Email address</FormLabel>
+                <Input
+                  type='email'
+                  onChange={(e) => setEmail(e.target.value)}
+                />
+              </FormControl>
+              <FormControl isRequired isInvalid={error} id='password'>
+                <FormLabel>Password</FormLabel>
+                <Input
+                  type='password'
+                  onChange={(e) => {
+                    setPassword(e.target.value);
+                  }}
+                />
+              </FormControl>
+              <FormControl isRequired isInvalid={error} id='password2'>
+                <FormLabel>Confirm Password</FormLabel>
+                <Input
+                  type='password'
+                  onChange={(e) => {
+                    setError('');
+                    setPassword2(e.target.value);
+                  }}
+                />
+                <FormErrorMessage>{error}</FormErrorMessage>
+              </FormControl>
+              <Stack spacing={10}>
+                <Button
+                  bg={'blue.400'}
+                  color={'white'}
+                  _hover={{
+                    bg: 'blue.500',
+                  }}
+                  type='submit'
+                >
+                  Register
+                </Button>
+              </Stack>
+            </form>
           </Stack>
         </Box>
       </Stack>

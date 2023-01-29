@@ -1,6 +1,17 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Heading, Button } from '@chakra-ui/react';
+import {
+  Heading,
+  Button,
+  Avatar,
+  Text,
+  Container,
+  Card,
+  Flex,
+  Spacer,
+  Box,
+  Center,
+} from '@chakra-ui/react';
 
 import UserPhotoModal from '../components/UserPhotoModal';
 import DisplayNameModal from '../components/DisplayNameModal';
@@ -24,13 +35,36 @@ const AccountPage = () => {
   };
 
   return (
-    <div>
-      <Heading>Account</Heading>
-      <p>User Email: {user.email}</p>
-      <DisplayNameModal />
-      <UserPhotoModal />
-      <Button onClick={handleLogout}>Log out</Button>
-    </div>
+    <Container>
+      <Card>
+        <Flex direction='column' align='center' p={5}>
+          <Avatar
+            size={'2xl'}
+            src={user.photoURL}
+            alt={'Avatar Alt'}
+            m={4}
+            pos={'relative'}
+            name={user.displayName}
+          />
+          <Heading>{user.displayName}</Heading>
+          <Text>{user.email}</Text>
+        </Flex>
+        <Flex mt={4}>
+          <Spacer />
+          <DisplayNameModal />
+          <Spacer />
+          <UserPhotoModal />
+          <Spacer />
+        </Flex>
+        <Center>
+          <Box m={5}>
+            <Button mt={10} onClick={handleLogout}>
+              Log out
+            </Button>
+          </Box>
+        </Center>
+      </Card>
+    </Container>
   );
 };
 

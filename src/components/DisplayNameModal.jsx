@@ -33,12 +33,8 @@ const DisplayNameModal = () => {
 
   return (
     <>
-      <Flex>
-        <Text ml={4} ref={finalRef}>
-          Username: {!user.displayName ? 'Not set' : user.displayName}
-        </Text>
-        <Button onClick={onOpen}>Set Username</Button>
-      </Flex>
+      <Button onClick={onOpen}>Change Username</Button>
+
       <Modal
         initialFocusRef={initialRef}
         finalFocusRef={finalRef}
